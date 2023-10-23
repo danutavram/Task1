@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sterge Firma</h1>
+    <p>Doresti sa stergi firma?</p>
+    <p>Nume: {{ firma.nume }}</p>
+    <p>Adresa: {{ firma.adresa }}</p>
+    <p>Categorie: {{ firma.categorie }}</p>
+
+    <a href="{{ path('firmaLista') }}">Nu</a>
+    <a href="{{ path('firmaStergeConfirma', {'id': firma.id}) }}">Da</a>
+</div>
+{% endblock %}

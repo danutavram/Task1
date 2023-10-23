@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pagina Principala</h1>
+    <ul>
+        <li><a href="{{ path('firma_adauga') }}">Adauga Firma</a></li>
+        <li><a href="{{ path('firmaLista') }}">Lista Firme</a></li>
+        <li><a href="{{ path('firme_top_views') }}">Top 10 Firme</a></li>
+    </ul>
+{% endblock %}

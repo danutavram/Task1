@@ -1,0 +1,53 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+# config/routes.yaml
+# config/routes.yaml
+
+# Ruta pentru listarea tuturor firmelor
+firma_lista:
+    path: /firmaLista
+    controller: App\Controller\FirmaController::listaFirme
+    methods: GET
+
+# Ruta pentru afișarea paginii de adăugare a firmei
+firma_adauga:
+    path: /firma/adauga
+    controller: App\Controller\FirmaController::adaugaFirma
+    methods: [GET, POST]
+
+# Ruta pentru afișarea detaliilor unei firme
+firma_vezi:
+    path: /firma/{id}
+    controller: App\Controller\FirmaController::veziFirma
+    methods: GET
+
+# Ruta pentru afișarea paginii de editare a unei firme
+firma_editare:
+    path: /firma/editare/{id}
+    controller: App\Controller\FirmaController::editareFirma
+    methods: [GET, POST]
+
+# Ruta pentru ștergerea unei firme
+firma_sterge:
+    path: /firma/sterge/{id}
+    controller: App\Controller\FirmaController::stergeFirma
+    methods: [GET, POST]
+
+firma_top_views:
+    path: /firme/top-views
+    controller: App\Controller\FirmaController::topViewedFirms
+    methods: ['GET']
+
+increment_view:
+    path: /firma/{id}/increment-view
+    controller: App\Controller\FirmaController::incrementView
+    methods: ['GET']
+
+firmaStergeConfirma:
+    path: /firma/sterge-confirma/{id}
+    controller: App\Controller\FirmaController::stergeFirmaConfirma
+
+

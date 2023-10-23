@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Detalii Firma</h1>
+
+    <p>Nume: {{ firma.nume }}</p>
+    <p>Adresa: {{ firma.adresa }}</p>
+    <p>Categorie: {{ firma.categorie }}</p>
+    <p>Numar de Vizualizari: {{ firma.views }}</p>
+
+    
+
+    <a href="{{ path('firmaLista') }}">Inapoi la Lista Firmelor</a>
+{% endblock %}

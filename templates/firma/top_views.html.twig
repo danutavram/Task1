@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Top 10 cele mai vizionate firme</h1>
+    
+    <ul>
+        {% for index, firma in topFirme|slice(0, 10) %}
+            <li>{{ index + 1 }}. {{ firma.nume }} ({{ firma.views }} vizualizari)</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('firmaLista') }}">Inapoi la lista de firme</a>
+    <a href="{{ path('main_page') }}">Pagina Principala</a>
+</div>
+{% endblock %}

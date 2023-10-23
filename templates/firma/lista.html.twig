@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista Firme</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Logo</th>
+                <th>Nume</th>
+                <th>Adresa</th>
+                <th>Categorie</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set currentPage = pagination.currentPageNumber %}
+            {% set itemsPerPage = pagination.itemNumberPerPage %}
+            {% set index = (currentPage - 1) * itemsPerPage + 1 %}
+            {% for firma in pagination %}
+                <tr>
+                    <td>{{ index }}</td>
+                    <td>
+                        {% if firma.logo %}
+                            <img src="{{ vich_uploader_asset(firma, 'logoFile') }}" alt="{{ firma.nume }} Logo" width="40" height="40">
+                        {% else %}
+                            <p>Fără logo</p>
+                        {% endif %}
+                    </td>
+                    <td>{{ firma.nume }}</td>
+                    <td>{{ firma.adresa }}</td>
+                    <td>{{ firma.categorie }}</td>
+                    <td>
+                        <a href="{{ path('firma_editare', {'id': firma.id}) }}">Editeaza</a>
+                        <a href="{{ path('firma_sterge', {'id': firma.id}) }}">Sterge</a>
+                        <a href="{{ path('firma_vezi', {'id': firma.id}) }}">Detalii</a>
+                    </td>
+                </tr>
+                {% set index = index + 1 %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(pagination) }}
+    
+    <a href="{{ path('firma_adauga') }}">Adauga Firma</a>
+    <a href="{{ path('firme_top_views') }}">Top 10 Firme</a>
+    <a href="{{ path('main_page') }}">Pagina Principala</a>
+{% endblock %}

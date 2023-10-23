@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adauga Firma{% endblock %}
+
+{% block body%}
+
+    <h1>Adauga Firma</h1>
+    {{ form_start(form, {'action': path('firma_adauga'), 'method': 'POST', 'attr': {'enctype': 'multipart/form-data'} }) }}
+    {{ form_widget(form) }}
+
+    <button type="submit">Adauga!</button>
+    <a href="{{ path('main_page') }}">Renunta</a>
+    {{ form_end(form) }}
+    {% endblock %}
