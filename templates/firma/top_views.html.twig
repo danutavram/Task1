@@ -2,7 +2,6 @@
 
 {% block body %}
     <h1>Top 10 cele mai vizionate firme</h1>
-    
     <ul>
         {% for index, firma in topFirme|slice(0, 10) %}
             <li>{{ index + 1 }}. {{ firma.nume }} ({{ firma.views }} vizualizari)</li>

@@ -16,15 +16,13 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class FirmaController extends AbstractController
 {
-
     /**
- * @Route("/", name="main_page")
- */
-public function mainPage(): Response
-{
-    return $this->render('firma/main_page.html.twig');
-}
-
+     * @Route("/", name="main_page")
+     */
+    public function mainPage(): Response
+    {
+        return $this->render('firma/main_page.html.twig');
+    }
     /**
      * @Route("/firme", name="firmaLista", methods={"GET"})
      */
@@ -41,7 +39,6 @@ public function mainPage(): Response
             10
         );
 
-        
         $session->set('firm_index', $index + 1);
 
         return $this->render('firma/lista.html.twig', [
@@ -49,35 +46,31 @@ public function mainPage(): Response
             'pagination' => $pagination,
             'index' => $index,
         ]);
-        
     }
-
     /**
      * @Route("/firma/adauga", name="firma_adauga", methods={"GET", "POST"})
      */
     public function adaugaFirma(Request $request, DocumentManager $dm): Response
-{
-    $form = $this->createForm(FormTypeFirma::class, new Firma());
-    $form->handleRequest($request);
+    {
+        $form = $this->createForm(FormTypeFirma::class, new Firma());
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $firma = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $firma = $form->getData();
 
-        if ($firma->getLogoFile()) {
-            $firma->setLogo($firma->getLogoFile()->getClientOriginalName());
+            if ($firma->getLogoFile()) {
+                $firma->setLogo($firma->getLogoFile()->getClientOriginalName());
+                $dm->persist($firma);
+            }
+
             $dm->persist($firma);
+            $dm->flush();
+
+            return $this->redirectToRoute('firmaLista');
         }
 
-        $dm->persist($firma);
-        $dm->flush();
-
-        return $this->redirectToRoute('firmaLista');
+        return $this->render('firma/adauga.html.twig', ['form' => $form->createView()]);
     }
-
-    return $this->render('firma/adauga.html.twig', ['form' => $form->createView()]);
-}
-
-
     /**
      * @Route("/firma/{id}", name="firma_vezi", methods={"GET"})
      */
@@ -90,7 +83,6 @@ public function mainPage(): Response
 
         return $this->render('firma/vezi.html.twig', ['firma' => $firma]);
     }
-
     /**
      * @Route("/firma/editare/{id}", name="firma_editare", methods={"GET", "POST"})
      */
@@ -106,7 +98,6 @@ public function mainPage(): Response
 
             return $this->redirectToRoute('firmaLista');
         }
-
         return $this->render('firma/editare.html.twig', [
             'form' => $form->createView(),
             'firma' => $firma,
@@ -126,14 +117,13 @@ public function mainPage(): Response
 
             return $this->redirectToRoute('firmaLista');
         }
-
         return $this->render('firma/sterge.html.twig', [
             'form' => $form->createView(),
             'firma' => $firma,
         ]);
     }
 
-        /**
+    /**
      * @Route("/firma/sterge-confirma/{id}", name="firmaStergeConfirma", methods={"GET"})
      */
     public function stergeFirmaConfirma(Firma $firma, DocumentManager $dm): Response
@@ -151,20 +141,24 @@ public function mainPage(): Response
     {
         $firmaRepository = $dm->getRepository(Firma::class);
 
-
         $qb = $firmaRepository->createQueryBuilder('f')
             ->sort('views', 'desc')
             ->limit(10);
 
         $topFirme = $qb->getQuery()->execute();
 
-        $firms = $firmaRepository->findall();
-
+        $index = 1;
         foreach ($topFirme as $firma) {
-            $views = $firma->getViews();
-            $firma->setViews($views + 1);
+            if ($firma->getViews() === null) {
+                $firma->setViews(0);
+            }
+
             $dm->persist($firma);
+            $firma->setIndex($index);
+            $index++;
         }
+
+        $dm->flush();
 
         return $this->render('firma/top_views.html.twig', [
             'topFirme' => $topFirme,
@@ -183,5 +177,4 @@ public function mainPage(): Response
 
         return $this->redirectToRoute('firma_vezi', ['id' => $firma->getId()]);
     }
-
 }

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Editeaza Firma</h1>
-<form method="post">
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button type="submit">Salveaza modificari</button>
-<a href="{{ path('firmaLista') }}">Cancel</a>
-{{ form_end(form) }}
-</form>
+    <h1>Editeaza Firma</h1>
+    <form method="post">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Salveaza modificari</button>
+        <a href="{{ path('firmaLista') }}">Cancel</a>
+        {{ form_end(form) }}
+    </form>
 </div>
 {% endblock %}

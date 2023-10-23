@@ -34,13 +34,28 @@ class Firma
      * @MongoDB\Field(type="string")
      */
     private $categorie;
-    
+
     /**
      * @MongoDB\Field(type="integer")
      */
     private $views;
 
-/**
+       /**
+     * @MongoDB\Field(type="integer")
+     */
+    private $index;
+
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    public function setIndex($index)
+    {
+        $this->index = $index;
+    }
+
+    /**
      * @Vich\UploadableField(mapping="firma_logo", fileNameProperty="logo")
      */
     private $logoFile;
@@ -49,8 +64,6 @@ class Firma
      * @ODM\Field(type="string")
      */
     private $logo;
-
-    // ...
 
     public function setLogoFile(File $image = null)
     {
@@ -71,11 +84,6 @@ class Firma
     {
         return $this->logo;
     }
-
-
-    // Getter și Setter pentru nume
-
-    // Getter pentru id
     public function getId()
     {
         return $this->id;
@@ -90,7 +98,6 @@ class Firma
         $this->nume = $nume;
     }
 
-    // Getter și Setter pentru adresa
     public function getAdresa()
     {
         return $this->adresa;
@@ -101,7 +108,6 @@ class Firma
         $this->adresa = $adresa;
     }
 
-    // Getter și Setter pentru categorie
     public function getCategorie()
     {
         return $this->categorie;

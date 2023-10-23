@@ -19,8 +19,5 @@ class FormTypeFirma extends AbstractType
         $builder->add('logoFile', VichImageType::class, [
             'required' => false,
         ]);
-        
-        // $builder->add('logo', FyleType::class);
-        
     }
 }
